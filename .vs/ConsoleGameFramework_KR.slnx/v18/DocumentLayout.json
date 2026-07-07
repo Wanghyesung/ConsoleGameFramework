@@ -1,0 +1,135 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\scenebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\scenebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\model\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:model\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\iscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\iscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\scenes\\titlescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:scenes\\titlescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\scenes\\samplescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:scenes\\samplescene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\model\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:model\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
+              "RelativeDocumentMoniker": "Model\\Player.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
+              "RelativeToolTip": "Model\\Player.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAnwBMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:27:42.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TitleScene.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Scenes\\TitleScene.cs",
+              "RelativeDocumentMoniker": "Scenes\\TitleScene.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Scenes\\TitleScene.cs",
+              "RelativeToolTip": "Scenes\\TitleScene.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAvwDoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:27:32.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SampleScene.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Scenes\\SampleScene.cs",
+              "RelativeDocumentMoniker": "Scenes\\SampleScene.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Scenes\\SampleScene.cs",
+              "RelativeToolTip": "Scenes\\SampleScene.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAEwFgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:27:19.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IScene.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\IScene.cs",
+              "RelativeDocumentMoniker": "Core\\IScene.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\IScene.cs",
+              "RelativeToolTip": "Core\\IScene.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwAoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:26:10.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Character.cs",
+              "RelativeDocumentMoniker": "Model\\Character.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Character.cs",
+              "RelativeToolTip": "Model\\Character.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:25:19.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SceneBase.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\SceneBase.cs",
+              "RelativeDocumentMoniker": "Core\\SceneBase.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\SceneBase.cs",
+              "RelativeToolTip": "Core\\SceneBase.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAmwFkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:21:39.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainScene.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\MainScene.cs",
+              "RelativeDocumentMoniker": "Model\\MainScene.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\MainScene.cs",
+              "RelativeToolTip": "Model\\MainScene.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFsAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:17:27.525Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

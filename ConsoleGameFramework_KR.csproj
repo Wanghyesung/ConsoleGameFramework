@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- 콘솔 앱 실행 파일을 만드는 프로젝트입니다. -->
+    <OutputType>Exe</OutputType>
+
+    <!-- 교육장 PC와 개인 PC에서 안정적으로 실행하기 위해 .NET 8 기준으로 작성했습니다. -->
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- System, Collections 등 자주 쓰는 using을 자동으로 포함합니다. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- null 관련 실수를 줄이기 위해 Nullable 검사를 켭니다. -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>

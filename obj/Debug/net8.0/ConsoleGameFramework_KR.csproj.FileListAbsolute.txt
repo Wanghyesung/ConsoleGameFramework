@@ -1,0 +1,43 @@
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.exe
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.deps.json
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.runtimeconfig.json
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.GeneratedMSBuildEditorConfig.editorconfig
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfoInputs.cache
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfo.cs
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.csproj.CoreCompileInputs.cache
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.sourcelink.json
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\refint\ConsoleGameFramework_KR.dll
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.genruntimeconfig.cache
+C:\Yong-s-Workspace\obsidian-vault\수업_자료\프레임워크\ConsoleGameFramework_Skeleton\ConsoleGameFramework\obj\Debug\net8.0\ref\ConsoleGameFramework_KR.dll
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfoInputs.cache
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfo.cs
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.csproj.CoreCompileInputs.cache
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\refint\ConsoleGameFramework_KR.dll
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.exe
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.deps.json
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.runtimeconfig.json
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.genruntimeconfig.cache
+C:\Users\user\Downloads\ConsoleGameFramework (1)\ConsoleGameFramework\obj\Debug\net8.0\ref\ConsoleGameFramework_KR.dll
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfoInputs.cache
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.AssemblyInfo.cs
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\refint\ConsoleGameFramework_KR.dll
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.exe
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.deps.json
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.runtimeconfig.json
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.dll
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.pdb
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.genruntimeconfig.cache
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ref\ConsoleGameFramework_KR.dll
