@@ -40,7 +40,6 @@ namespace ConsoleGameFramework_KR.Scenes
 
         public void Init(GameContext _refContext)
         {
-           
             m_refContext = _refContext;
 
             AddScene(new TitleScene());
@@ -48,6 +47,10 @@ namespace ConsoleGameFramework_KR.Scenes
             AddScene(new MainScene());
             _currentScene = new MainScene();
             _currentScene.Init(_refContext);
+
+
+
+
         }
 
         //public void Update(GameContext _refContext)

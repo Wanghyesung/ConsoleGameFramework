@@ -37,7 +37,9 @@ public class GameManager
     /// </summary>
     public void Init()
     {
+        Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
         SceneManager.Instance.Init(Context);
+
     }
 
     /// <summary>

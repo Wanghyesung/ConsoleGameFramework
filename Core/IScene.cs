@@ -47,11 +47,9 @@ public interface IScene
 
     //항상 Y축이 앞에 나오게
 
-
-    bool Move(Entity _refEntity, Vec2 _vNex, Layer _eLayer);
-
     Vec2 GetMapSize();
 
+    bool Move(Vec2 _vPre, Vec2 _vNex, Layer _eLayer);
     bool CanGo(Vec2 _vNext, Layer _eLayerMask);
 
 }

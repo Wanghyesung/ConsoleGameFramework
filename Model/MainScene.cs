@@ -15,9 +15,10 @@ namespace ConsoleGameFramework_KR.Model
     public enum Layer
     {
         None = 0,
-        Lock = 1 << 0,
-        Apple = 1 << 1,
-        Player = 1 << 2,
+        Lock = 1 ,
+        Apple = 2,
+        Player = 3,
+        End = 4,
     }
 
     public struct Vec2
@@ -74,9 +75,15 @@ namespace ConsoleGameFramework_KR.Model
         
         public override SceneKey Key => SceneKey;
 
+    
+
         public override void Init(GameContext context)
         {
+            base.Init(context);
+
             //Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            #region CellInfo
             m_map = new List<List<CellInfo>>(MAX_MAP_SIZEY);
             for(int i = 0; i< MAX_MAP_SIZEY; ++i)
             {
@@ -93,6 +100,9 @@ namespace ConsoleGameFramework_KR.Model
             SetCellInfo(new Vec2(22, 7), Layer.Apple);
             SetCellInfo(new Vec2(27, 25), Layer.Apple);
 
+            #endregion
+
+            #region CreateLock
             Random refRange = new Random();
 
             for(int i = 0; i<MAX_MAP_SIZEY /4; ++i) 
@@ -104,22 +114,25 @@ namespace ConsoleGameFramework_KR.Model
                     SetCellInfo(new Vec2(y, x), Layer.Lock);
                 }
             }
+            
+            m_listLayer[(int)Layer.None][(int)Layer.Player] = true;
+            m_listLayer[(int)Layer.Apple][(int)Layer.Player] = true;
+
+            #endregion
 
             // 오브젝트 초기화
-            m_refPlayer = new Player(new Vec2(0, 0), Layer.Player, Layer.Lock);
-                AddEntity(m_refPlayer);
+            m_refPlayer = new Player(new Vec2(0, 0), Layer.Player);
+            AddEntity(m_refPlayer);
 
+
+            //TODO : 나중에 오브젝트만 따로 Init하는 코드 추가
+            for (int i = 0; i < m_listObject.Count; ++i)
+                m_listObject[i].Init(context);
         }
 
         public override void Render(GameContext context)
         {
             ConsoleUI.Clear();
-
-            ConsoleUI.WriteBox(new[]
-            {
-                "현재 맵",
-        }, "ASDW를 눌러서 움직이세요", ConsoleColor.DarkCyan);
-
             
             //오브젝트를 먼저 그리고 그 뒤에 렌더링
             RenderObject(context);
@@ -132,17 +145,18 @@ namespace ConsoleGameFramework_KR.Model
 
         private void RenderScene(GameContext context)
         {
+            m_strMap = "";
             //m_refPlayer. 여기서 Queue로 플레이어 정보 가져오기
 
-            for(int i = 0; i< MAX_MAP_SIZEY; ++i) 
+            for (int i = 0; i< MAX_MAP_SIZEY; ++i) 
             {
                 for(int j = 0; j< MAX_MAP_SIZEX; ++j)
                 {
-                    if( (m_map[i][j].m_eLayer & Layer.Lock) != 0)
+                    if( (m_map[i][j].m_eLayer == Layer.Lock))
                         m_strMap+= "▣";
-                    else if ((m_map[i][j].m_eLayer & Layer.Apple) != 0)
+                    else if ((m_map[i][j].m_eLayer == Layer.Apple))
                         m_strMap += "●";
-                    else if ((m_map[i][j].m_eLayer & Layer.Player) != 0)
+                    else if ((m_map[i][j].m_eLayer == Layer.Player))
                         m_strMap += "★";
                     else /*if ((m_map[i][j].m_eLayer & Layer.None) == 0)*/
                         m_strMap += "·";
@@ -160,14 +174,14 @@ namespace ConsoleGameFramework_KR.Model
 
         public override void HandleInput(GameContext context)
         {
-            int choice = ConsoleUI.ReadMenuChoice(Menu);
-            
-            switch (choice)
-            {
-                case 0:
-                    context.Game.RequestQuit();
-                    break;
-            }
+            //int choice = ConsoleUI.ReadMenuChoice(Menu);
+            //
+            //switch (choice)
+            //{
+            //    case 0:
+            //        context.Game.RequestQuit();
+            //        break;
+            //}
         }
 
         public override void Update(GameContext context)
@@ -179,6 +193,9 @@ namespace ConsoleGameFramework_KR.Model
         {
             return new Vec2(MAX_MAP_SIZEY, MAX_MAP_SIZEX);
         }
+
+
+        
 
     }
 }

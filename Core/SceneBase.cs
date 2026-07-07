@@ -18,9 +18,25 @@ public abstract class SceneBase : IScene
     protected List<List<CellInfo>> m_map = new();
 
     protected Player m_refPlayer;
+
+    protected List<List<bool>> m_listLayer = new();
+
+    
+    private Dictionary<int, Action<Vec2>> m_hashAction = new();
+
     public virtual void Init(GameContext context)
     {
 
+        m_listLayer = new List<List<bool>>((int)Layer.End);
+        
+        for (int i = 0; i < (int)Layer.End; ++i)
+        {
+            m_listLayer.Add(new List<bool>());
+            for (int j = 0; j < (int)Layer.End; ++j)
+            {
+                m_listLayer[i].Add(false);
+            }
+        }
     }
 
     public virtual void Enter(GameContext context)
@@ -49,6 +65,18 @@ public abstract class SceneBase : IScene
         SceneManager.Instance.ChangeScene(nextScene);
     }
 
+    public bool CheckMove(Layer _eLayer, Layer _eNextLayer)
+    {
+        int iCur = (int)_eLayer;
+        int iNext = (int)_eNextLayer;   
+
+        //작은 애가 앞으로
+        if(iCur > iNext)
+            return m_listLayer[iNext][iCur];
+        else
+            return m_listLayer[iCur][iNext];
+
+    }
 
     public virtual void AddEntity(Entity _refObj)
     {
@@ -67,19 +95,24 @@ public abstract class SceneBase : IScene
         if (CanGo(_vNex, _eLayer) == false)
             return false;
 
+        //만약 이동 성공하면 그에 맞는 액션 호출
+        Layer eTargetLayer = FindLayer(_vNex);
+        StartAction(_eLayer, eTargetLayer, _vNex);
+
         m_map[_vPre.y][_vPre.x].m_eLayer = Layer.None;
         m_map[_vNex.y][_vNex.x].m_eLayer = _eLayer;
 
         return true;
     }
 
-    public bool CanGo(Vec2 _vNext,Layer _eLayerMask)
+    public bool CanGo(Vec2 _vNext,Layer _eLayer)
     {
         if(_vNext.y < 0 || _vNext.x < 0)
             return false;
         if (_vNext.y >= m_map.Count || _vNext.x >= m_map[0].Count)
             return false;
-        if ((m_map[(int)_vNext.y][(int)_vNext.x].m_eLayer & _eLayerMask) != 0)
+
+        if (CheckMove(m_map[_vNext.y][_vNext.x].m_eLayer, _eLayer) == false)
             return false;
 
         return true;
@@ -87,11 +120,31 @@ public abstract class SceneBase : IScene
 
     public void SetCellInfo(Vec2 _vPos, Layer _eLayers)
     {
-          m_map[_vPos.y][_vPos.x].m_eLayer = _eLayers;
+         m_map[_vPos.y][_vPos.x].m_eLayer = _eLayers;
     }
 
-    public bool Move(Entity _refEntity, Vec2 _vNex, Layer _eLayer)
+    public void AddAction(Layer _eLayer, Layer _eTarget, Action<Vec2> _refAction)
     {
-        throw new NotImplementedException();
+        int iValue = (1<<(int)_eLayer) | (1<<(int)_eTarget);
+       
+        if(m_hashAction.TryGetValue(iValue, out var refAction) == false)
+            m_hashAction.Add(iValue, _refAction);
+    }
+
+    public void StartAction(Layer _eLayer, Layer _eTarget, Vec2 _vStartPos)
+    {
+        int iValue = (1<<(int)_eLayer) | (1<<(int)_eTarget);
+        if (m_hashAction.TryGetValue(iValue, out var refAction) == true)
+            refAction?.Invoke(_vStartPos);
+    }
+
+    private Layer FindLayer(Vec2 _vPos)
+    {
+        if (_vPos.y < 0 || _vPos.x < 0)
+            return Layer.End;
+        if (_vPos.y >= m_map.Count || _vPos.x >= m_map[0].Count)
+            return Layer.End;
+
+        return m_map[_vPos.y][_vPos.x].m_eLayer;
     }
 }

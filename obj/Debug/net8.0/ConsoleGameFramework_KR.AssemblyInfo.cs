@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsoleGameFramework_KR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b74090a709c19a7fd3e604e177e6273b741ce5c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsoleGameFramework_KR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsoleGameFramework_KR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

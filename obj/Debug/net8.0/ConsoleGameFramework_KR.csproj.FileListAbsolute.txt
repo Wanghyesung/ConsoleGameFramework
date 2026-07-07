@@ -41,3 +41,4 @@ C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGame
 C:\Users\user\Documents\GitHub\ConsoleGameFramework\bin\Debug\net8.0\ConsoleGameFramework_KR.pdb
 C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.genruntimeconfig.cache
 C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ref\ConsoleGameFramework_KR.dll
+C:\Users\user\Documents\GitHub\ConsoleGameFramework\obj\Debug\net8.0\ConsoleGameFramework_KR.sourcelink.json

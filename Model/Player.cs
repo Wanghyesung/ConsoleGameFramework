@@ -17,20 +17,34 @@ public class Player : Entity
         public PlayerPos m_refPre = null;
 
         public Vec2 m_vDir;
+        public Vec2 m_vPos;
     }
 
-    private PlayerPos Head = null;
+    private PlayerPos m_refHead = null;
 
     private string m_strInput;
 
-    public Player(Vec2 pos, Layer layer, Layer _eLayerMaks) : base(pos, layer, _eLayerMaks)
+    public Player(Vec2 pos, Layer layer) : base(pos, layer)
     {
-        Head = new PlayerPos();
+        m_refHead = new PlayerPos();
         m_vPos = pos;
+        m_refHead.m_vPos = m_vPos;
     }
 
-    
-    public override void Update(GameContext context) //Lock
+
+    public override void Init(GameContext context)
+    {
+        var IScene = SceneManager.Instance.CurrentScene;
+        if(IScene != null)
+        {
+
+            if (IScene is SceneBase refScene)
+                refScene.AddAction(m_eLayer, Layer.Apple, AddBody);
+            else
+                Environment.FailFast("플레이어 함수 콜백이 안됨");
+        }
+    }
+    public override void Update(GameContext context)
     {
         UpdatePos();
     }
@@ -74,28 +88,66 @@ public class Player : Entity
                     continue;
             }
 
-            if (SceneManager.Instance.CurrentScene.CanGo(vNextPos, m_eLayerMask))
+            if (SceneManager.Instance.CurrentScene.CanGo(vNextPos,m_eLayer) == true)
             {
-                Head.m_vDir = vDir;
-                MovePos();
-
+                m_refHead.m_vDir = vDir;
+                MovePos(vNextPos);
                 break;
             }
             else
+            {
                 vNextPos = m_vPos;
+                ConsoleUI.WriteLine("못가여. 다시 입력해주세요.");
+            }
         }
-   
     }
-    private void MovePos()
+
+    private bool MovePos(Vec2 _vNextPos)
     {
-        PlayerPos refCur = Head;
-        PlayerPos prePre = null;
+        if (SceneManager.Instance.CurrentScene.Move(m_refHead.m_vPos, _vNextPos, m_eLayer) == false)
+            return false;
 
-        while(refCur != null)
+        //Head가 이번에 있던 자리와 방향을 다음 마디에게 넘겨줄 값으로 저장
+        Vec2 vTrailPos = m_refHead.m_vPos;
+        Vec2 vTrailDir = m_refHead.m_vDir;
+
+        m_refHead.m_vPos = _vNextPos;
+        m_vPos = _vNextPos;
+
+        PlayerPos refCur = m_refHead.m_refPre;
+        while (refCur != null)
         {
-            
+            //다음 마디로 넘기기 전에 내 현재 자리/방향을 먼저 보관
+            Vec2 vCurPos = refCur.m_vPos;
+            Vec2 vCurDir = refCur.m_vDir;
+
+            //앞 마디가 있던 자리로 이동하면서, 앞 마디가 오던 방향을 그대로 참고해서 따라감
+            if (SceneManager.Instance.CurrentScene.Move(refCur.m_vPos, vTrailPos, m_eLayer) == false)
+                break;
+
+            refCur.m_vPos = vTrailPos;
+            refCur.m_vDir = vTrailDir;
+
+            vTrailPos = vCurPos;
+            vTrailDir = vCurDir;
+
+            refCur = refCur.m_refPre;
         }
 
+        return true;
     }
+
+    //CallBack
+    private void AddBody(Vec2 _vPos)
+    {
+        PlayerPos refHead = new PlayerPos();
+        refHead.m_refPre = m_refHead;
+
+        m_refHead = refHead;
+        m_vPos = _vPos;
+        m_refHead.m_vPos = m_vPos;
+    }
+
+
 
 }
