@@ -4,6 +4,7 @@ using ConsoleGameFramework_KR.Model;
 using ConsoleGameFramework_KR.Scenes;
 using System;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace ConsoleGameFramework.Models;
 
@@ -23,6 +24,8 @@ public class Player : Entity
     private PlayerPos m_refHead = null;
 
     private string m_strInput;
+
+    private bool m_bGrow = false;
 
     public Player(Vec2 pos, Layer layer) : base(pos, layer)
     {
@@ -114,9 +117,11 @@ public class Player : Entity
         m_refHead.m_vPos = _vNextPos;
         m_vPos = _vNextPos;
 
-        PlayerPos refCur = m_refHead.m_refPre;
-        while (refCur != null)
+        PlayerPos refCur = m_refHead;
+        while (refCur.m_refPre != null)
         {
+            refCur = refCur.m_refPre;
+
             //다음 마디로 넘기기 전에 내 현재 자리/방향을 먼저 보관
             Vec2 vCurPos = refCur.m_vPos;
             Vec2 vCurDir = refCur.m_vDir;
@@ -130,8 +135,20 @@ public class Player : Entity
 
             vTrailPos = vCurPos;
             vTrailDir = vCurDir;
+        }
 
-            refCur = refCur.m_refPre;
+        if(m_bGrow == true)
+        {
+            m_bGrow = false;
+
+            PlayerPos refTail = new PlayerPos();
+            refCur.m_refPre = refTail;
+            refTail.m_refNext = refCur;
+
+            refTail.m_vDir = vTrailDir;
+            refTail.m_vPos = vTrailPos;
+
+            SceneManager.Instance.CurrentScene.Move(refTail.m_vPos, vTrailPos, m_eLayer);
         }
 
         return true;
@@ -140,14 +157,7 @@ public class Player : Entity
     //CallBack
     private void AddBody(Vec2 _vPos)
     {
-        PlayerPos refHead = new PlayerPos();
-        refHead.m_refPre = m_refHead;
-
-        m_refHead = refHead;
-        m_vPos = _vPos;
-        m_refHead.m_vPos = m_vPos;
+        m_bGrow = true;
     }
-
-
 
 }

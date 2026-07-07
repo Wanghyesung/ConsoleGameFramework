@@ -137,8 +137,9 @@ namespace ConsoleGameFramework_KR.Model
             //오브젝트를 먼저 그리고 그 뒤에 렌더링
             RenderObject(context);
 
+            
             RenderScene(context);
-          
+
             ConsoleUI.WriteLine(m_strMap);
            
         }
