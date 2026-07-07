@@ -1,5 +1,7 @@
+using ConsoleGameFramework.Models;
 using ConsoleGameFramework.Scenes;
 using ConsoleGameFramework.UI;
+using ConsoleGameFramework_KR.Core;
 using ConsoleGameFramework_KR.Model;
 using ConsoleGameFramework_KR.Scenes;
 
@@ -31,6 +33,12 @@ public class GameManager
 
     public GameContext Context { get; }
 
+    private Player m_refPlayer = null;
+
+    public Player Player => m_refPlayer;
+
+    public void SetPlayer(Player _refPlayer) { m_refPlayer = _refPlayer; }
+
     /// <summary>
     /// 씬 등록, 맵 생성 등 무거운 초기화를 담당합니다.
     /// Program.cs에서 Run()보다 먼저 명시적으로 호출해야 합니다.
@@ -39,7 +47,7 @@ public class GameManager
     {
         Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
         SceneManager.Instance.Init(Context);
-
+        PathManager.Instance.Init();
     }
 
     /// <summary>
@@ -54,9 +62,14 @@ public class GameManager
         while (Context.IsRunning && SceneManager.Instance.CurrentScene is not null)
         {
             SceneManager.Instance.CurrentScene.Render(Context);
-            SceneManager.Instance.CurrentScene.Update(Context);
+
             ConsoleUI.Present();
+
+            SceneManager.Instance.CurrentScene.Update(Context);
+
             SceneManager.Instance.CurrentScene.HandleInput(Context);
+
+            SceneManager.Instance.CurrentScene.UpdateDelete();
         }
 
         ConsoleUI.Clear();

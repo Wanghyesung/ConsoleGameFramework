@@ -1,6 +1,7 @@
 ﻿using ConsoleGameFramework.Core;
 using ConsoleGameFramework.Models;
 using ConsoleGameFramework.UI;
+using ConsoleGameFramework_KR.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace ConsoleGameFramework_KR.Model
     };
         const int MAX_MAP_SIZEX = 100;
         const int MAX_MAP_SIZEY = 30;
-        private string m_strMap; //stringbuilder로 바꾸기
+        private StringBuilder m_strMap = new StringBuilder();
         
         public override SceneKey Key => SceneKey;
 
@@ -84,6 +85,10 @@ namespace ConsoleGameFramework_KR.Model
             //Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             #region CellInfo
+            m_listLayer[(int)Layer.None][(int)Layer.Player] = true;
+            m_listLayer[(int)Layer.Apple][(int)Layer.Player] = true;
+            m_listLayer[(int)Layer.None][(int)Layer.Apple] = true;
+
             m_map = new List<List<CellInfo>>(MAX_MAP_SIZEY);
             for(int i = 0; i< MAX_MAP_SIZEY; ++i)
             {
@@ -94,12 +99,13 @@ namespace ConsoleGameFramework_KR.Model
                 }
             }
 
-            SetCellInfo(new Vec2(1, 10), Layer.Apple);
-            SetCellInfo(new Vec2(12, 20), Layer.Apple);
-            SetCellInfo(new Vec2(5, 15), Layer.Apple);
-            SetCellInfo(new Vec2(22, 7), Layer.Apple);
-            SetCellInfo(new Vec2(27, 25), Layer.Apple);
+            AddEntity(new Apple(new Vec2(1, 10)));
+            AddEntity(new Apple(new Vec2(12, 20)));
+            AddEntity(new Apple(new Vec2(5, 15)));
+            AddEntity(new Apple(new Vec2(22, 7) ));
+            AddEntity(new Apple(new Vec2(27, 25)));
 
+           
             #endregion
 
             #region CreateLock
@@ -114,16 +120,13 @@ namespace ConsoleGameFramework_KR.Model
                     SetCellInfo(new Vec2(y, x), Layer.Lock);
                 }
             }
-            
-            m_listLayer[(int)Layer.None][(int)Layer.Player] = true;
-            m_listLayer[(int)Layer.Apple][(int)Layer.Player] = true;
 
             #endregion
 
             // 오브젝트 초기화
-            m_refPlayer = new Player(new Vec2(0, 0), Layer.Player);
-            AddEntity(m_refPlayer);
-
+            Player refPlayer = new Player(new Vec2(0, 0));
+            AddEntity(refPlayer);
+            GameManager.Instance.SetPlayer(refPlayer);
 
             //TODO : 나중에 오브젝트만 따로 Init하는 코드 추가
             for (int i = 0; i < m_listObject.Count; ++i)
@@ -140,30 +143,34 @@ namespace ConsoleGameFramework_KR.Model
             
             RenderScene(context);
 
-            ConsoleUI.WriteLine(m_strMap);
-           
+            //Console.WriteLine(m_strMap.ToString());
+            
+            ConsoleUI.Write(m_strMap.ToString());
         }
 
         private void RenderScene(GameContext context)
         {
-            m_strMap = "";
+            m_strMap.Clear();
             //m_refPlayer. 여기서 Queue로 플레이어 정보 가져오기
 
-            for (int i = 0; i< MAX_MAP_SIZEY; ++i) 
+            for (int i = 0; i< MAX_MAP_SIZEY; ++i)
             {
                 for(int j = 0; j< MAX_MAP_SIZEX; ++j)
                 {
                     if( (m_map[i][j].m_eLayer == Layer.Lock))
-                        m_strMap+= "▣";
+                        m_strMap.Append("▣");
                     else if ((m_map[i][j].m_eLayer == Layer.Apple))
-                        m_strMap += "●";
+                        m_strMap.Append("●");
                     else if ((m_map[i][j].m_eLayer == Layer.Player))
-                        m_strMap += "★";
+                        m_strMap.Append("★");
                     else /*if ((m_map[i][j].m_eLayer & Layer.None) == 0)*/
-                        m_strMap += "·";
+                        m_strMap.Append("·");
                 }
-                m_strMap +='\n';
+                m_strMap.Append('\n');
+               
             }
+
+            PathManager.Instance.Render(m_strMap);
         }
 
         //아직까지는 쓸 일이 없음

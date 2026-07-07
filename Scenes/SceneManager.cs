@@ -1,4 +1,5 @@
 ﻿using ConsoleGameFramework.Core;
+using ConsoleGameFramework.Models;
 using ConsoleGameFramework.Scenes;
 using ConsoleGameFramework_KR.Model;
 using System;
@@ -11,23 +12,23 @@ namespace ConsoleGameFramework_KR.Scenes
 {
     public class SceneManager
     {
-        private readonly Dictionary<SceneKey, IScene> _scenes = new Dictionary<SceneKey, IScene>();
-        private IScene? _currentScene;
+        private readonly Dictionary<SceneKey, SceneBase> _scenes = new Dictionary<SceneKey, SceneBase>();
+        private SceneBase _currentScene;
 
         public static SceneManager Instance { get; } = new SceneManager();
 
         private GameContext m_refContext = null;
         private SceneManager() { }
 
-        public IScene? CurrentScene => _currentScene;
-        private void AddScene(IScene scene)
+        public SceneBase CurrentScene => _currentScene;
+        private void AddScene(SceneBase scene)
         {
             _scenes[scene.Key] = scene;
         }
 
         public void ChangeScene(SceneKey key)
         {
-            if (!_scenes.TryGetValue(key, out IScene? nextScene))
+            if (!_scenes.TryGetValue(key, out SceneBase nextScene))
             {
                 m_refContext.AddLog($"등록되지 않은 화면입니다: {key}");
                 return;
@@ -48,10 +49,9 @@ namespace ConsoleGameFramework_KR.Scenes
             _currentScene = new MainScene();
             _currentScene.Init(_refContext);
 
-
-
-
         }
+
+     
 
         //public void Update(GameContext _refContext)
         //{

@@ -52,4 +52,9 @@ public interface IScene
     bool Move(Vec2 _vPre, Vec2 _vNex, Layer _eLayer);
     bool CanGo(Vec2 _vNext, Layer _eLayerMask);
 
+    void AddEntity(Entity _refObj);
+
+    public void DeleteEntity(Entity _refObj);
+
+    void UpdateDelete();
 }

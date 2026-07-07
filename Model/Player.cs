@@ -27,7 +27,7 @@ public class Player : Entity
 
     private bool m_bGrow = false;
 
-    public Player(Vec2 pos, Layer layer) : base(pos, layer)
+    public Player(Vec2 pos) : base(pos, Layer.Player)
     {
         m_refHead = new PlayerPos();
         m_vPos = pos;
@@ -136,7 +136,6 @@ public class Player : Entity
             vTrailPos = vCurPos;
             vTrailDir = vCurDir;
         }
-
         if(m_bGrow == true)
         {
             m_bGrow = false;

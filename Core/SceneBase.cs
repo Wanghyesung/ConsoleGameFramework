@@ -15,14 +15,18 @@ public abstract class SceneBase : IScene
 
     protected List<Entity> m_listObject = new List<Entity>();
 
+    public IReadOnlyList<Entity> ListObject => m_listObject; //읽기 전용으로 넘겨주기
+
     protected List<List<CellInfo>> m_map = new();
 
-    protected Player m_refPlayer;
+    public IReadOnlyList<IReadOnlyList<CellInfo>> Map => m_map;
+
 
     protected List<List<bool>> m_listLayer = new();
-
     
     private Dictionary<int, Action<Vec2>> m_hashAction = new();
+
+    private List<Entity> m_listDeleteObj = new List<Entity>();
 
     public virtual void Init(GameContext context)
     {
@@ -80,7 +84,7 @@ public abstract class SceneBase : IScene
 
     public virtual void AddEntity(Entity _refObj)
     {
-        m_listObject.Add(m_refPlayer);
+        m_listObject.Add(_refObj);
         Vec2 vPos = _refObj.m_vPos;
 
         if(CanGo(vPos, _refObj.m_eLayer) == false)
@@ -126,9 +130,11 @@ public abstract class SceneBase : IScene
     public void AddAction(Layer _eLayer, Layer _eTarget, Action<Vec2> _refAction)
     {
         int iValue = (1<<(int)_eLayer) | (1<<(int)_eTarget);
-       
-        if(m_hashAction.TryGetValue(iValue, out var refAction) == false)
-            m_hashAction.Add(iValue, _refAction);
+
+        if (m_hashAction.ContainsKey(iValue))
+            m_hashAction[iValue] += _refAction;
+        else
+            m_hashAction[iValue] = _refAction;
     }
 
     public void StartAction(Layer _eLayer, Layer _eTarget, Vec2 _vStartPos)
@@ -147,4 +153,36 @@ public abstract class SceneBase : IScene
 
         return m_map[_vPos.y][_vPos.x].m_eLayer;
     }
+
+    public void DeleteEntity(Entity _refObj)
+    {
+        m_listDeleteObj.Add(_refObj);
+    }
+
+    public void UpdateDelete()
+    {
+        for(int i = 0; i<m_listDeleteObj.Count; ++i)
+        {
+            var refEntity = m_listDeleteObj[i];
+            for (int j = 0; j<m_listObject.Count; ++j) 
+            {
+                if(m_listObject[j] == refEntity)
+                {
+                    //기존 자리 없애기
+                    int iLast = m_listObject.Count -1;
+                    Entity tem = m_listObject[j];
+                    m_listObject[j] = m_listObject[iLast];
+                    m_listObject[iLast] = tem;
+                    m_listObject.RemoveAt(iLast);
+
+                    break;
+                }
+            }
+        }
+
+        m_listDeleteObj.Clear();
+    }   
+
+
+
 }
