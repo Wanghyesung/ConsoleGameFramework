@@ -8,8 +8,6 @@ using System.Runtime.CompilerServices;
 
 namespace ConsoleGameFramework.Models;
 
-
-
 public class Player : Entity
 {
     public class PlayerPos
@@ -34,13 +32,11 @@ public class Player : Entity
         m_refHead.m_vPos = m_vPos;
     }
 
-
     public override void Init(GameContext context)
     {
         var IScene = SceneManager.Instance.CurrentScene;
         if(IScene != null)
         {
-
             if (IScene is SceneBase refScene)
                 refScene.AddAction(m_eLayer, Layer.Apple, AddBody);
             else

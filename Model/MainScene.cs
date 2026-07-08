@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleGameFramework_KR.Model
 {
-    [Flags]
+    
     public enum Layer
     {
         None = 0,
@@ -40,6 +40,8 @@ namespace ConsoleGameFramework_KR.Model
         //TODO : 이거 비트 마스크로 변경 갈수 있는지 레이어로 체크
 
         public Layer m_eLayer;
+      
+
         public CellInfo()
         {
            
@@ -77,7 +79,7 @@ namespace ConsoleGameFramework_KR.Model
         
         public override SceneKey Key => SceneKey;
 
-    
+        private int m_iAppleCount = 0;
 
         public override void Init(GameContext context)
         {
@@ -132,12 +134,19 @@ namespace ConsoleGameFramework_KR.Model
             //TODO : 나중에 오브젝트만 따로 Init하는 코드 추가
             for (int i = 0; i < m_listObject.Count; ++i)
                 m_listObject[i].Init(context);
+            
+            AddAction(Layer.Player, Layer.Apple, UpApple);
         }
 
         public override void Render(GameContext context)
         {
             ConsoleUI.Clear();
-            
+
+            ConsoleUI.WriteBox(new[]
+            {
+                $"현재 먹은 사과의 수 {m_iAppleCount}"
+            }, "", ConsoleColor.DarkCyan);
+
             //오브젝트를 먼저 그리고 그 뒤에 렌더링
             RenderObject(context);
             
@@ -202,7 +211,10 @@ namespace ConsoleGameFramework_KR.Model
             return new Vec2(MAX_MAP_SIZEY, MAX_MAP_SIZEX);
         }
 
-
+        private void UpApple(Vec2 _vPos)
+        {
+            ++m_iAppleCount;
+        }
         
 
     }

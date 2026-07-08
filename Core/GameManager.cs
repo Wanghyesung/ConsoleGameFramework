@@ -65,7 +65,7 @@ public class GameManager
         {
             SceneManager.Instance.CurrentScene.Render(Context);
 
-            InputManager.Update();
+            //InputManager.Update();
 
             ConsoleUI.Present();
 

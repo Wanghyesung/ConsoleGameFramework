@@ -57,7 +57,7 @@ public abstract class SceneBase : IScene
 
     public abstract void HandleInput(GameContext context);
     public abstract Vec2 GetMapSize();
-
+    
     public virtual void Exit(GameContext context)
     {
         // 필요할 때만 자식 Scene에서 override 합니다.
