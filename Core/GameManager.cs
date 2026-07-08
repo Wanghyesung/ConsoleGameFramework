@@ -4,6 +4,7 @@ using ConsoleGameFramework.UI;
 using ConsoleGameFramework_KR.Core;
 using ConsoleGameFramework_KR.Model;
 using ConsoleGameFramework_KR.Scenes;
+using System.Diagnostics;
 
 namespace ConsoleGameFramework.Core;
 
@@ -30,15 +31,23 @@ public class GameManager
     {
         Context = new GameContext(this);
     }
-
     public GameContext Context { get; }
 
     private Player m_refPlayer = null;
-
     public Player Player => m_refPlayer;
-
     public void SetPlayer(Player _refPlayer) { m_refPlayer = _refPlayer; }
 
+    private bool m_bWin = false;
+    public bool IsWin => m_bWin;
+    public bool SetWin
+    {
+        set
+        {
+            m_bWin = value;
+            Context.IsRunning = false;
+        }
+    }
+    
     /// <summary>
     /// 씬 등록, 맵 생성 등 무거운 초기화를 담당합니다.
     /// Program.cs에서 Run()보다 먼저 명시적으로 호출해야 합니다.
@@ -61,26 +70,74 @@ public class GameManager
     
     public void Run()
     {
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        double dTargetFrameTime = 0.08;
         while (Context.IsRunning && SceneManager.Instance.CurrentScene is not null)
         {
+            long lStartTicks = stopwatch.ElapsedTicks;
+
             SceneManager.Instance.CurrentScene.Render(Context);
 
-            //InputManager.Update();
+            InputManager.Update();
 
             ConsoleUI.Present();
 
             SceneManager.Instance.CurrentScene.Update(Context);
 
             SceneManager.Instance.CurrentScene.UpdateDelete();
+
+            long endTicks = stopwatch.ElapsedTicks;
+            double elapsedSeconds = (double)(endTicks - lStartTicks) / Stopwatch.Frequency;
+            double remainingSeconds = dTargetFrameTime - elapsedSeconds;
+
+            // 만약 1초보다 일찍 끝났다면, 남은 시간만큼 스레드를 잠재움
+            if (remainingSeconds > 0)
+            {
+                // 밀리초 단위로 변환해서 대기
+                int sleepTimeMs = (int)(remainingSeconds * 1000);
+                Thread.Sleep(sleepTimeMs);
+            }
         }
 
         ConsoleUI.Clear();
-        ConsoleUI.WriteTitle("프로그램 종료", "수고하셨습니다.");
-        ConsoleUI.WriteBox(new[]
+        if (GameManager.Instance.IsWin == true)
         {
-            "C# 콘솔 게임 프레임워크가 종료되었습니다.",
-            "Core, UI, Scenes 구조를 기준으로 기능을 확장할 수 있습니다."
-        }, "Good Bye", ConsoleColor.DarkCyan);
+            ConsoleUI.WriteTitle("이겼습니다^0^", "고생하셨습니다.");
+            ConsoleUI.WriteBox(new[]
+            {
+        "      _.-'''''''-._      ",
+        "    .'  ^       ^  '.    ",
+        "   /   ( )     ( )   \\   ",
+        "  |       _____       |  ",
+        "  |      /     \\      |  ",
+        "   \\     \\_____/     /   ",
+        "    '.             .'    ",
+        "      '-._______.-'      ",
+        "                         ",
+        "    VICTORY CLEAR (^0^)  "
+    }, "WINNER", ConsoleColor.DarkCyan);
+        }
+        else
+        {
+            ConsoleUI.WriteTitle("졌습니다 ;;", "고생하셨습니다.");
+            ConsoleUI.WriteBox(new[]
+    {
+        "      _.-'''''''-._      ",
+        "    .'  ;       ;  '.    ",
+        "   /   | |     | |   \\   ",
+        "  |    | |     | |    |  ",
+        "  |    v v     v v    |  ",
+        "   \\     .---.       /   ",
+        "    '.  /     \\    .'    ",
+        "      '-._______.-'      ",
+        "                         ",
+        "     GAME OVER (ㅠㅠ)    "
+    }, "LOSER", ConsoleColor.DarkCyan);
+        }
+        
+
         ConsoleUI.Present();
     }
 

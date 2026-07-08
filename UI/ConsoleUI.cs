@@ -17,6 +17,9 @@ public static class ConsoleUI
     private const int MinWidth = 60;
     private const int MaxWidth = 120;
     private const int MapCellWidth = 2;
+    private const int DefaultHeight = 30;
+    private const int MinHeight = 15;
+    private const int MaxHeight = 60;
 
     // 프레임 버퍼는 화면에 출력할 줄과 색상 조각을 메모리에 먼저 모아두는 공간입니다.
     private static readonly List<List<ConsoleSpan>> _frameLines = new List<List<ConsoleSpan>>();
@@ -82,6 +85,28 @@ public static class ConsoleUI
             catch
             {
                 return DefaultWidth;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 콘솔 창 높이를 안전하게 가져옵니다.
+    /// 한 프레임의 총 출력 줄 수가 이 값을 넘으면 콘솔이 자동으로 스크롤되어
+    /// Present()의 커서 계산(맨 위로 되돌리기)이 어긋나고, 화면이 계속 아래로
+    /// 밀려 그려지는 문제가 생깁니다. 화면을 그리는 쪽(Scene)에서 이 값을 참고해
+    /// 출력 줄 수를 창 높이 이하로 제한해야 합니다.
+    /// </summary>
+    public static int SafeHeight
+    {
+        get
+        {
+            try
+            {
+                return Math.Clamp(Console.WindowHeight - 1, MinHeight, MaxHeight);
+            }
+            catch
+            {
+                return DefaultHeight;
             }
         }
     }

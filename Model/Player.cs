@@ -56,49 +56,48 @@ public class Player : Entity
     {
         //내 위치 미리 잡고 다음 칸 갈 수 있는지 체크
         Vec2 vNextPos = m_vPos;
-        Vec2 vDir;
-        while (true)
+        Vec2 vDir = m_refHead.m_vDir;
+       
+        bool b = true;
+        //m_strInput = ConsoleUI.ReadString("ASDW를 입력하여 움직이세요");
+        if (InputManager.GetKey(KeyCode.W) || InputManager.GetKeyDown(KeyCode.W))
         {
-            m_strInput = ConsoleUI.ReadString("ASDW를 입력하여 움직이세요");
-            switch (m_strInput)
-            {
-                case "W":
-                case "w":
-                    vNextPos.y--;
-                    vDir = new Vec2(-1, 0);
-                    break;
-                case "S":
-                case "s":
-                    vNextPos.y++;
-                    vDir = new Vec2(1, 0);
-                    break;
-                case "A":
-                case "a":
-                    vNextPos.x--;
-                    vDir = new Vec2(0, -1);
-                    break;
-                case "D":
-                case "d":
-                    vNextPos.x++;
-                    vDir = new Vec2(0, 1);
-                    break;
-                default:
-                    ConsoleUI.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
-                    continue;
-            }
-
-            if (SceneManager.Instance.CurrentScene.CanGo(vNextPos,m_eLayer) == true)
+            vNextPos.y--;
+            vDir = new Vec2(-1, 0);
+        }
+        else if (InputManager.GetKey(KeyCode.S) || InputManager.GetKeyDown(KeyCode.S))
+        {
+            vNextPos.y++;
+            vDir = new Vec2(1, 0);
+        }
+        else if (InputManager.GetKey(KeyCode.A) || InputManager.GetKeyDown(KeyCode.A))
+        {
+            vNextPos.x--;
+            vDir = new Vec2(0, -1);
+        }
+        else if (InputManager.GetKey(KeyCode.D) || InputManager.GetKeyDown(KeyCode.D))
+        {
+            vNextPos.x++;
+            vDir = new Vec2(0, 1);
+        }
+        else
+        {
+            b = false;
+        }
+       
+        if (b == true)
+        {
+            if (SceneManager.Instance.CurrentScene.CanGo(vNextPos, m_eLayer) == true)
             {
                 m_refHead.m_vDir = vDir;
                 MovePos(vNextPos);
-                break;
             }
             else
             {
                 vNextPos = m_vPos;
-                ConsoleUI.WriteLine("못가여. 다시 입력해주세요.");
             }
         }
+        
     }
 
     private bool MovePos(Vec2 _vNextPos)

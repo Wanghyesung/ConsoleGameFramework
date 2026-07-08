@@ -17,7 +17,7 @@ namespace ConsoleGameFramework_KR.Core
         //왜 테스크를 쓰냐 
         /*
          효율적인 일꾼 관리 (1초 쉬기 ..) , 해당 시간이 끝난 뒤에 남은 작업을 처리할 수 있음
-         */
+        */
 
         public static void Init()
         {

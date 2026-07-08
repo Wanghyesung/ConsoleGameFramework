@@ -21,7 +21,6 @@ public abstract class SceneBase : IScene
 
     public IReadOnlyList<IReadOnlyList<CellInfo>> Map => m_map;
 
-
     protected List<List<Entity>> m_mapEntity = new();
 
     protected List<List<bool>> m_listLayer = new();
@@ -90,7 +89,6 @@ public abstract class SceneBase : IScene
             return m_listLayer[iNext][iCur];
         else
             return m_listLayer[iCur][iNext];
-
     }
 
     public virtual void AddEntity(Entity _refObj)

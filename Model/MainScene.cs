@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Timer = ConsoleGameFramework_KR.Core.Timer;
 
 namespace ConsoleGameFramework_KR.Model
 {
@@ -73,11 +74,23 @@ namespace ConsoleGameFramework_KR.Model
     };
         const int MAX_MAP_SIZEX = 100;
         const int MAX_MAP_SIZEY = 30;
+
+        // 맵에 쓰는 ▣●★ 같은 전각 기호는 콘솔에서 최대 2칸 폭으로 보일 수 있어
+        // 뷰포트 폭을 계산할 때 이를 반영합니다.
+        const int MapCellDisplayWidth = 2;
+
+        // WriteBox(제목 박스)가 차지하는 줄 수. Render()에서 WriteBox 다음에 맵을 그리므로
+        // 뷰포트 높이를 계산할 때 이만큼 빼야 합니다.
+        const int HeaderLineCount = 6;
+
         private StringBuilder m_strMap = new StringBuilder();
-        
         public override SceneKey Key => SceneKey;
 
         private int m_iAppleCount = 0;
+        private int m_iMaxCout = 0;
+
+        private long m_lLastTime = 60; //100초
+        
 
         public override void Init(GameContext context)
         {
@@ -131,6 +144,7 @@ namespace ConsoleGameFramework_KR.Model
             AddEntity(new Apple(new Vec2(5, 15)));
             AddEntity(new Apple(new Vec2(22, 7)));
             AddEntity(new Apple(new Vec2(27, 25)));
+            m_iMaxCout = GetObjCount(Layer.Apple);
             #endregion
 
             // 오브젝트 초기화
@@ -152,17 +166,54 @@ namespace ConsoleGameFramework_KR.Model
 
             ConsoleUI.WriteBox(new[]
             {
+                "ASDW로 움직이세요",
                 $"현재 먹은 사과의 수 {m_iAppleCount}"
             }, $"전체 사과 카운트 {iCount}", ConsoleColor.DarkCyan);
 
-            //오브젝트를 먼저 그리고 그 뒤에 렌더링
+            //오브젝트를 먼저 그리고 그 뒤에 씬 렌더링
             RenderObject(context);
             
             RenderScene(context);
 
-            //Console.WriteLine(m_strMap.ToString());
-            
-            ConsoleUI.Write(m_strMap.ToString());
+            WriteMapViewport();
+
+          
+            CheckTime();
+        }
+
+        private void CheckTime()
+        {
+            //시간 렌더링
+            long lCurTime = Timer.Time();
+            ConsoleUI.WriteBox(new[]
+            {
+                $"게임 오버 시간 {m_lLastTime}"
+            }, $"현재 시간 {lCurTime}", ConsoleColor.DarkCyan);
+
+            if(lCurTime > m_lLastTime)
+                GameManager.Instance.SetWin = false;
+        }
+        /// <summary>
+        /// 맵 전체(30x100)를 매번 다 그리면 콘솔 창 높이/너비를 넘겨서
+        /// 콘솔이 계속 아래로 스크롤되는 문제가 있었습니다.
+        /// 플레이어 위치를 중심으로 화면에 실제로 들어가는 범위만 잘라서 그립니다.
+        /// </summary>
+        private void WriteMapViewport()
+        {
+            string[] rows = m_strMap.ToString().Split('\n');
+
+            int viewportHeight = Math.Clamp(ConsoleUI.SafeHeight - HeaderLineCount, 5, MAX_MAP_SIZEY);
+            int viewportWidth = Math.Clamp(ConsoleUI.SafeWidth / MapCellDisplayWidth - 2, 10, MAX_MAP_SIZEX);
+
+            Vec2 playerPos = GameManager.Instance.Player.m_vPos;
+
+            int startY = Math.Clamp(playerPos.y - viewportHeight / 2, 0, MAX_MAP_SIZEY - viewportHeight);
+            int startX = Math.Clamp(playerPos.x - viewportWidth / 2, 0, MAX_MAP_SIZEX - viewportWidth);
+
+            for (int y = startY; y < startY + viewportHeight; ++y)
+            {
+                ConsoleUI.WriteLine(rows[y].Substring(startX, viewportWidth));
+            }
         }
 
         private void RenderScene(GameContext context)
@@ -220,8 +271,10 @@ namespace ConsoleGameFramework_KR.Model
         private void UpApple(Vec2 _vPos)
         {
             ++m_iAppleCount;
+
+            if (m_iAppleCount == m_iMaxCout)
+                GameManager.Instance.SetWin = true;
         }
-        
 
     }
 }
