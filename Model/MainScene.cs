@@ -38,10 +38,8 @@ namespace ConsoleGameFramework_KR.Model
     public class CellInfo
     {
         //TODO : 이거 비트 마스크로 변경 갈수 있는지 레이어로 체크
-
         public Layer m_eLayer;
       
-
         public CellInfo()
         {
            
@@ -102,13 +100,14 @@ namespace ConsoleGameFramework_KR.Model
                 }
             }
 
-            AddEntity(new Apple(new Vec2(1, 10)));
-            AddEntity(new Apple(new Vec2(12, 20)));
-            AddEntity(new Apple(new Vec2(5, 15)));
-            AddEntity(new Apple(new Vec2(22, 7) ));
-            AddEntity(new Apple(new Vec2(27, 25)));
+            m_mapEntity = new List<List<Entity>>(MAX_MAP_SIZEY);
+            for (int i = 0; i < MAX_MAP_SIZEY; ++i)
+            {
+                m_mapEntity.Add(new List<Entity>());
+                for (int j = 0; j < MAX_MAP_SIZEX; ++j)
+                    m_mapEntity[i].Add(null);
+            }
 
-           
             #endregion
 
             #region CreateLock
@@ -126,6 +125,14 @@ namespace ConsoleGameFramework_KR.Model
 
             #endregion
 
+            #region Create Apple
+            AddEntity(new Apple(new Vec2(1, 10)));
+            AddEntity(new Apple(new Vec2(12, 20)));
+            AddEntity(new Apple(new Vec2(5, 15)));
+            AddEntity(new Apple(new Vec2(22, 7)));
+            AddEntity(new Apple(new Vec2(27, 25)));
+            #endregion
+
             // 오브젝트 초기화
             Player refPlayer = new Player(new Vec2(0, 0));
             AddEntity(refPlayer);
@@ -141,11 +148,12 @@ namespace ConsoleGameFramework_KR.Model
         public override void Render(GameContext context)
         {
             ConsoleUI.Clear();
+            int iCount = GetObjCount(Layer.Apple);
 
             ConsoleUI.WriteBox(new[]
             {
                 $"현재 먹은 사과의 수 {m_iAppleCount}"
-            }, "", ConsoleColor.DarkCyan);
+            }, $"전체 사과 카운트 {iCount}", ConsoleColor.DarkCyan);
 
             //오브젝트를 먼저 그리고 그 뒤에 렌더링
             RenderObject(context);
@@ -176,9 +184,7 @@ namespace ConsoleGameFramework_KR.Model
                         m_strMap.Append("·");
                 }
                 m_strMap.Append('\n');
-               
             }
-
             PathManager.Instance.Render(m_strMap);
         }
 

@@ -22,6 +22,8 @@ public abstract class SceneBase : IScene
     public IReadOnlyList<IReadOnlyList<CellInfo>> Map => m_map;
 
 
+    protected List<List<Entity>> m_mapEntity = new();
+
     protected List<List<bool>> m_listLayer = new();
     
     private Dictionary<int, Action<Vec2>> m_hashAction = new();
@@ -53,6 +55,16 @@ public abstract class SceneBase : IScene
             m_listObject[i].Update(context);
     }
 
+    public int GetObjCount(Layer _eLayer)
+    {
+        int iRet = 0;
+        for (int i = 0; i < m_listObject.Count; i++)
+        {
+            if (m_listObject[i].m_eLayer == _eLayer)
+                ++iRet;
+        }
+        return iRet;
+    }
     public abstract void Render(GameContext context);
 
     public abstract void HandleInput(GameContext context);
@@ -90,6 +102,7 @@ public abstract class SceneBase : IScene
             Environment.FailFast("강제 크래시 발생!");
 
         m_map[vPos.y][(int)vPos.x].m_eLayer = _refObj.m_eLayer;
+        m_mapEntity[vPos.y][(int)vPos.x] = _refObj;
     }
 
 
@@ -101,6 +114,10 @@ public abstract class SceneBase : IScene
         //만약 이동 성공하면 그에 맞는 액션 호출
         Layer eTargetLayer = FindLayer(_vNex);
         StartAction(_eLayer, eTargetLayer, _vNex);
+
+        var refEn = m_mapEntity[_vNex.y][_vNex.x];
+        if (refEn != null)
+            DeleteEntity(refEn);
 
         m_map[_vPre.y][_vPre.x].m_eLayer = Layer.None;
         m_map[_vNex.y][_vNex.x].m_eLayer = _eLayer;
@@ -174,6 +191,8 @@ public abstract class SceneBase : IScene
                     m_listObject[iLast] = tem;
                     m_listObject.RemoveAt(iLast);
 
+                    Vec2 vPos = refEntity.m_vPos;
+                    m_mapEntity[vPos.y][vPos.x] = null;
                     break;
                 }
             }
@@ -181,7 +200,5 @@ public abstract class SceneBase : IScene
 
         m_listDeleteObj.Clear();
     }   
-
-
 
 }
