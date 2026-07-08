@@ -41,7 +41,8 @@ namespace ConsoleGameFramework_KR.Core
 
         private List<Vec2> m_listResult = new List<Vec2>();
 
-        Queue<Vec2> m_refQueue = new Queue<Vec2>();
+        private Queue<Vec2> m_refQueue = new Queue<Vec2>();  //BFS
+        private int m_iMinCount = int.MaxValue;
 
         private ePathFlag Flag = ePathFlag.None;
         public void Init()
@@ -69,7 +70,13 @@ namespace ConsoleGameFramework_KR.Core
             //SceneManager에서 FindObject(Layer.Apple)로 가져와서 비교해보는게 좋은데 그건 나중에
             SceneBase refScene = SceneManager.Instance.CurrentScene;
 
-            BFS(vStartPos, refScene); //TODO 나중에는 플래그에 따라 길탐색
+            //TODO 나중에는 플래그에 따라 길탐색
+
+            BFS(vStartPos, refScene); 
+            
+            //DFSStart(vStartPos, refScene);
+            
+            Reset();
 
             Vec2 Max = refScene.GetMapSize();
             int MaxY = Max.y;
@@ -81,15 +88,13 @@ namespace ConsoleGameFramework_KR.Core
                 int x = m_listResult[i].x;
                 _strMap[ (y * (MaxX + 1)) + x] = '+'; // 각 행 끝의 '\n' 만큼 stride를 +1 보정
             }
-
-            Reset();
+           
         }
 
         private void BFS(Vec2 _vStartPos, SceneBase _refSceneBase)
         {
             m_refQueue.Clear();
-            m_listResult.Clear();
-
+          
             var refMap = _refSceneBase.Map;
 
             CellInfo refCellInfo = refMap[_vStartPos.y][_vStartPos.x];
@@ -130,22 +135,70 @@ namespace ConsoleGameFramework_KR.Core
 
             if(bFind == true)
             {
-                while (vCur.y > -1)
-                {
-                    m_listResult.Add(vCur);
-                    vCur = m_listPath[vCur.y][vCur.x];
-                }
-
-                //마지막 인덱스 제거 (플레이어 위치)
-                m_listResult.RemoveAt(m_listResult.Count - 1);
-
-                int iCount = m_listResult.Count - 1;
-                Vec2 vTem = m_listResult[0];
-                m_listResult[0] = m_listResult[iCount];
-                m_listResult[iCount] = vTem;
-                m_listResult.RemoveAt(iCount);
+                FindPath(vCur);
             }
 
+        }
+
+        //범위가 너무 많아서 안 쓰기로 했습니다
+        private void DFSStart(Vec2 _vCurPos, SceneBase _refSceneBase)
+        {
+            Vec2 vCur = new Vec2();
+            vCur.y = -1;
+            m_listVis[_vCurPos.y][_vCurPos.x] = true;
+            m_listPath[_vCurPos.y][_vCurPos.x] = vCur;
+
+            m_iMinCount = int.MaxValue;
+            DFS(0, _vCurPos, _refSceneBase);
+        }
+        private void DFS(int _iCount, Vec2 _vCurPos, SceneBase _refSceneBase)
+        {
+            var refMap = _refSceneBase.Map;
+            if (refMap[_vCurPos.y][_vCurPos.x].m_eLayer == Layer.Apple && m_iMinCount > _iCount)
+            {
+                m_iMinCount = _iCount;
+                FindPath(_vCurPos);
+                return;
+            }
+
+            for (int i = 0; i<4; ++i)
+            {
+                Vec2 vNext = _vCurPos;
+
+                vNext.y += dir[i, 0];    
+                vNext.x += dir[i, 1];
+
+                if (_refSceneBase.CanGo(vNext, Layer.Player) == true && m_listVis[vNext.y][vNext.x] == false)
+                {
+                    m_listVis[vNext.y][vNext.x] = true;
+                    m_listPath[vNext.y][vNext.x] = _vCurPos;
+                    DFS(_iCount + 1, vNext, _refSceneBase);
+                    m_listVis[vNext.y][vNext.x] = false;
+                    m_listPath[vNext.y][vNext.x] = Vec2.Zero;
+
+                }
+            }
+        }
+
+
+        private void FindPath(Vec2 _vCur)
+        {
+            m_listResult.Clear();
+
+            while (_vCur.y > -1)
+            {
+                m_listResult.Add(_vCur);
+                _vCur = m_listPath[_vCur.y][_vCur.x];
+            }
+
+            //마지막 인덱스 제거 (플레이어 위치)
+            m_listResult.RemoveAt(m_listResult.Count - 1);
+
+            int iCount = m_listResult.Count - 1;
+            Vec2 vTem = m_listResult[0];
+            m_listResult[0] = m_listResult[iCount];
+            m_listResult[iCount] = vTem;
+            m_listResult.RemoveAt(iCount);
         }
 
         private void Reset()

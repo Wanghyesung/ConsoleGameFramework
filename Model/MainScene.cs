@@ -31,6 +31,8 @@ namespace ConsoleGameFramework_KR.Model
         {
             y = _y; x = _x;
         }
+
+        public static Vec2 Zero =>  new Vec2(0, 0);
     }
 
     public class CellInfo
@@ -58,8 +60,7 @@ namespace ConsoleGameFramework_KR.Model
 
         public Vec2 m_vPos;
     }
-
-
+    
     public class MainScene : SceneBase
     {
         private SceneKey SceneKey = SceneKey.Main;
@@ -139,7 +140,6 @@ namespace ConsoleGameFramework_KR.Model
             
             //오브젝트를 먼저 그리고 그 뒤에 렌더링
             RenderObject(context);
-
             
             RenderScene(context);
 

@@ -30,7 +30,6 @@ public abstract class SceneBase : IScene
 
     public virtual void Init(GameContext context)
     {
-
         m_listLayer = new List<List<bool>>((int)Layer.End);
         
         for (int i = 0; i < (int)Layer.End; ++i)

@@ -48,6 +48,9 @@ public class GameManager
         Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
         SceneManager.Instance.Init(Context);
         PathManager.Instance.Init();
+
+        ConsoleGameFramework_KR.Core.Timer.Init();
+        InputManager.Init();
     }
 
     /// <summary>
@@ -58,16 +61,15 @@ public class GameManager
     
     public void Run()
     {
-
         while (Context.IsRunning && SceneManager.Instance.CurrentScene is not null)
         {
             SceneManager.Instance.CurrentScene.Render(Context);
 
+            InputManager.Update();
+
             ConsoleUI.Present();
 
             SceneManager.Instance.CurrentScene.Update(Context);
-
-            SceneManager.Instance.CurrentScene.HandleInput(Context);
 
             SceneManager.Instance.CurrentScene.UpdateDelete();
         }
