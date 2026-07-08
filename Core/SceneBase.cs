@@ -168,6 +168,17 @@ public abstract class SceneBase : IScene
         return m_map[_vPos.y][_vPos.x].m_eLayer;
     }
 
+    public IEnumerable<Entity> GetObjs(Layer _eLayer)
+    {
+        for (int i = 0; i < m_listObject.Count; i++)
+        {
+            if (m_listObject[i].m_eLayer == _eLayer)
+            {
+                yield return m_listObject[i];
+            }
+        }
+    }
+
     public void DeleteEntity(Entity _refObj)
     {
         m_listDeleteObj.Add(_refObj);

@@ -37,7 +37,7 @@ public class Key
 public static class InputManager
 {
     [DllImport("user32.dll")]
-    private static extern short GetAsyncKeyState(int vKey);
+    private static extern short GetAsyncKeyState(int vKey); //Windows OS 시스템의 기능
 
     private const int VK_UP = 0x26;
     private const int VK_DOWN = 0x28;

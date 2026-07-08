@@ -100,10 +100,10 @@ public class Player : Entity
         
     }
 
-    private bool MovePos(Vec2 _vNextPos)
+    private void MovePos(Vec2 _vNextPos)
     {
         if (SceneManager.Instance.CurrentScene.Move(m_refHead.m_vPos, _vNextPos, m_eLayer) == false)
-            return false;
+            return;
 
         //Head가 이번에 있던 자리와 방향을 다음 마디에게 넘겨줄 값으로 저장
         Vec2 vTrailPos = m_refHead.m_vPos;
@@ -131,6 +131,7 @@ public class Player : Entity
             vTrailPos = vCurPos;
             vTrailDir = vCurDir;
         }
+
         if(m_bGrow == true)
         {
             m_bGrow = false;
@@ -144,8 +145,6 @@ public class Player : Entity
 
             SceneManager.Instance.CurrentScene.Move(refTail.m_vPos, vTrailPos, m_eLayer);
         }
-
-        return true;
     }
 
     //CallBack

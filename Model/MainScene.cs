@@ -98,10 +98,11 @@ namespace ConsoleGameFramework_KR.Model
 
             //Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            #region CellInfo
+#region CellInfo
             m_listLayer[(int)Layer.None][(int)Layer.Player] = true;
             m_listLayer[(int)Layer.Apple][(int)Layer.Player] = true;
             m_listLayer[(int)Layer.None][(int)Layer.Apple] = true;
+            m_listLayer[(int)Layer.Lock][(int)Layer.Apple] = true;
 
             m_map = new List<List<CellInfo>>(MAX_MAP_SIZEY);
             for(int i = 0; i< MAX_MAP_SIZEY; ++i)
@@ -121,32 +122,31 @@ namespace ConsoleGameFramework_KR.Model
                     m_mapEntity[i].Add(null);
             }
 
-            #endregion
+#endregion
 
-            #region CreateLock
+#region CreateLock
             Random refRange = new Random();
 
             for(int i = 0; i<MAX_MAP_SIZEY /4; ++i) 
             {
                 for(int j =0; j<MAX_MAP_SIZEX / 8; ++j)
                 {
-                    int y = refRange.Next(0, MAX_MAP_SIZEY -1);
-                    int x = refRange.Next(0, MAX_MAP_SIZEX - 1);
+                    int y = refRange.Next(1, MAX_MAP_SIZEY -1);
+                    int x = refRange.Next(1, MAX_MAP_SIZEX - 1);
                     SetCellInfo(new Vec2(y, x), Layer.Lock);
                 }
             }
 
-            #endregion
+#endregion
 
-            #region Create Apple
+#region Create Apple
             AddEntity(new Apple(new Vec2(1, 10)));
             AddEntity(new Apple(new Vec2(12, 20)));
             AddEntity(new Apple(new Vec2(5, 15)));
             AddEntity(new Apple(new Vec2(22, 7)));
             AddEntity(new Apple(new Vec2(27, 25)));
             m_iMaxCout = GetObjCount(Layer.Apple);
-            #endregion
-
+#endregion
             // 오브젝트 초기화
             Player refPlayer = new Player(new Vec2(0, 0));
             AddEntity(refPlayer);

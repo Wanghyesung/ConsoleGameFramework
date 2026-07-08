@@ -67,7 +67,6 @@ public class GameManager
     /// 현재 Scene을 그리고(Render), 화면에 반영(Present), 입력을 처리(HandleInput)하는 과정을 반복합니다.
     /// </summary>
     /// 
-    
     public void Run()
     {
         Stopwatch stopwatch = new Stopwatch();

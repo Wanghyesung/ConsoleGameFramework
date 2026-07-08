@@ -6,8 +6,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ConsoleGameFramework_KR.Core
 {
@@ -24,7 +26,14 @@ namespace ConsoleGameFramework_KR.Core
     }
     public class PathManager
     {
-
+        public struct Node
+        {
+            public int Y, X;
+            public int G, H;
+            public int F => G + H; // F = G + H 자동 계산
+            public Node(int y, int x) { Y = y; X = x; }
+            public Node() { Y = -1; X = -1; }
+        }
 
         int[,] dir = new int[4, 2]
         {
@@ -39,15 +48,20 @@ namespace ConsoleGameFramework_KR.Core
         private List<List<bool>> m_listVis = new List<List<bool>>();
         private List<List<Vec2>> m_listPath = new List<List<Vec2>>();
 
+        private List<List<int>> m_listBestG = new List<List<int>>(); //A스타 알고리즘 전용
+
         private List<Vec2> m_listResult = new List<Vec2>();
 
         private Queue<Vec2> m_refQueue = new Queue<Vec2>();  //BFS
         private int m_iMinCount = int.MaxValue;
 
+        private PriorityQueue<Node, int> m_refOpenPQ = new PriorityQueue<Node, int>();
+        private HashSet<Vec2> m_refHashClose = new HashSet<Vec2>();
+
         private ePathFlag Flag = ePathFlag.None;
         public void Init()
         {
-            Flag |= ePathFlag.BFS;
+            Flag |= ePathFlag.AStar;
 
 
             m_listVis = Enumerable.Range(0, 100)
@@ -56,6 +70,11 @@ namespace ConsoleGameFramework_KR.Core
 
             m_listPath = Enumerable.Range(0, 100)
            .Select(_ => Enumerable.Repeat(new Vec2(), 100).ToList())
+           .ToList();
+
+
+            m_listBestG = Enumerable.Range(0, 100)
+           .Select(_ => Enumerable.Repeat(int.MaxValue, 100).ToList())
            .ToList();
         }
 
@@ -72,7 +91,9 @@ namespace ConsoleGameFramework_KR.Core
 
             //TODO 나중에는 플래그에 따라 길탐색
 
-            BFS(vStartPos, refScene); 
+            StartAStar(vStartPos, refScene);
+
+            //BFS(vStartPos, refScene); 
             
             //DFSStart(vStartPos, refScene);
             
@@ -181,6 +202,104 @@ namespace ConsoleGameFramework_KR.Core
         }
 
 
+        /*
+         F = G + H
+         G (Goal): 시작점에서 현재 타일까지 오는데 걸린 실제 비용
+         H (Heuristic): 현재 타일에서 목적지까지 남은 예상 비용 (직선거리 등)
+         F: 최종 점수 (이 값이 가장 낮은 타일을 고르며 전진합니다) 
+         */
+        //휴리스틱을 기준으로 가장 가까운 사과를 찾기
+        private void StartAStar(Vec2 _vStartPos, SceneBase _refSceneBase)
+        {
+            Vec2 vEndPos = new Vec2(-1,-1);
+            int iMinH = int.MaxValue;
+            foreach (var refObj in _refSceneBase.GetObjs(Layer.Apple))
+            {
+                Vec2 vTargetPos = refObj.m_vPos;
+                int h = (Math.Abs(_vStartPos.x - vTargetPos.x) + Math.Abs(_vStartPos.y - vTargetPos.y)) * 10;
+                if (h < iMinH)
+                {
+                    iMinH = h;
+                    vEndPos = vTargetPos;
+                }
+            }
+            if (vEndPos.x == -1)
+                return;
+
+            Vec2 vCur = new Vec2(-1, -1);
+            m_listPath[_vStartPos.y][_vStartPos.x] = vCur;
+
+            AStar(_vStartPos, vEndPos, _refSceneBase);
+        }
+        private void AStar(Vec2 _vStartPos, Vec2 _vEndPos, SceneBase _refSceneBase)
+        {
+            // 1. OpenList(검사 예정인 곳), ClosedList(검사 끝난 곳) 생성
+            m_refOpenPQ.Clear();
+
+            // 2. 빠른 검색을 위해 HashSet 사용
+            m_refHashClose.Clear();
+            Node vStartNode = new Node(_vStartPos.y, _vStartPos.x);
+            m_refOpenPQ.Enqueue(vStartNode, vStartNode.F);
+
+
+            while (m_refOpenPQ.Count > 0)
+            {
+                // 2. OpenList 안에서 F 점수가 가장 낮은 노드를 현재 노드로 선택
+                Node tCur = m_refOpenPQ.Dequeue();
+
+                //비싼 얘 먼저 나오고 나중에 싼 값이 나오면 무시
+                if (m_refHashClose.Contains(new Vec2(tCur.Y, tCur.X)))
+                    continue;
+
+                // 3. 현재 노드를 OpenList에서 빼고 ClosedList에 넣음
+                m_refHashClose.Add(new Vec2(tCur.Y, tCur.X));
+
+                // 3. 목적지에 도달했으면 경로 역추적 리턴
+                if (_vEndPos.x == tCur.X && _vEndPos.y == tCur.Y)
+                {
+                    FindPath(_vEndPos);
+                    return;
+                }
+
+                // 4. 상하좌우 인접한 이웃 타일 탐색
+                for (int i = 0; i < 4; ++i)
+                {
+                    Vec2 vNext = new Vec2(tCur.Y, tCur.X);
+                    vNext.y += dir[i, 0];
+                    vNext.x += dir[i, 1];
+
+                    // 맵 범위 밖이거나, 벽(1)이거나, 이미 검사한 곳(Closed)이면 패스
+                    if (_refSceneBase.CanGo(vNext, Layer.Player) == false)
+                        continue;
+                    if (m_refHashClose.Contains(vNext) == true)
+                        continue;
+                   
+                    // 이동 비용 계산 (여기선 한 칸 이동당 비용 10으로 잡음) -> 현재까지 얼마나 이동했나
+                    int iNextG = tCur.G + 10;
+
+                    // 휴리스틱 대각선 제외한 맨해튼 거리 측정법 (X차이 + Y차이 * 10) -> 목적지까지 예정 비용
+                    int iNextH = (Math.Abs(vNext.x - _vEndPos.x) + Math.Abs(vNext.y - _vEndPos.y)) * 10;
+
+                    //1. 이미 발견된 적이 있는 타일인지 최고 기록(Best G)을 확인
+                    if (iNextG < m_listBestG[vNext.y][vNext.x])
+                    {
+                        m_listBestG[vNext.y][vNext.x] = iNextG;
+
+                        m_listPath[vNext.y][vNext.x] = new Vec2(tCur.Y, tCur.X);
+
+                        // 4. 새로운 데이터로 노드를 생성하여 큐에 대입
+                        Node vNextNode = new Node(vNext.y, vNext.x)
+                        {
+                            G = iNextG,
+                            H = iNextH
+                        };
+                        m_refOpenPQ.Enqueue(vNextNode, vNextNode.F);
+                    }
+                }
+            }
+        }
+
+
         private void FindPath(Vec2 _vCur)
         {
             m_listResult.Clear();
@@ -209,7 +328,7 @@ namespace ConsoleGameFramework_KR.Core
                 for (int j = 0; j < 100; j++)
                 {
                     m_listVis[i][j] = false;
-
+                    m_listBestG[i][j] = int.MaxValue;
                     // Vec2가 구조체(struct)라면 new Vec2()는 가비지를 만들지 않고 0으로 초기화됩니다.
                     m_listPath[i][j] = new Vec2();
                 }
