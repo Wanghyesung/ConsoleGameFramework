@@ -260,7 +260,7 @@ namespace ConsoleGameFramework_KR.Core
                 // 2. OpenList 안에서 F 점수가 가장 낮은 노드를 현재 노드로 선택
                 Node tCur = m_refOpenPQ.Dequeue();
 
-                //비싼 얘 먼저 나오고 나중에 싼 값이 나오면 무시
+              
                 if (m_refHashClose.Contains(new Vec2(tCur.Y, tCur.X)))
                     continue;
 

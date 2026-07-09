@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\pathmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\pathmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,8 +15,8 @@
       "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:model\\mainscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\timer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\scenes\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:scenes\\scenemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|solutionrelative:core\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40B0F455-AAD8-ECBC-672E-2BB55FC65D7A}|ConsoleGameFramework_KR.csproj|c:\\users\\user\\documents\\github\\consolegameframework\\core\\gamecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,11 +82,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SceneBase.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\SceneBase.cs",
               "RelativeDocumentMoniker": "Core\\SceneBase.cs",
@@ -100,72 +100,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PathManager.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\PathManager.cs",
               "RelativeDocumentMoniker": "Core\\PathManager.cs",
               "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\PathManager.cs",
               "RelativeToolTip": "Core\\PathManager.cs",
-              "ViewState": "AgIAAPMAAAAAAAAAAADwvwUBAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAvwFoAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-07T06:10:43.951Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
-              "RelativeDocumentMoniker": "Model\\Player.cs",
-              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
-              "RelativeToolTip": "Model\\Player.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAUwEcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T07:27:42.49Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ConsoleUI.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\UI\\ConsoleUI.cs",
-              "RelativeDocumentMoniker": "UI\\ConsoleUI.cs",
-              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\UI\\ConsoleUI.cs",
-              "RelativeToolTip": "UI\\ConsoleUI.cs",
-              "ViewState": "AgIAAHEBAAAAAAAAAAA8wIwBAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T01:30:20.821Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Timer.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\Timer.cs",
               "RelativeDocumentMoniker": "Core\\Timer.cs",
               "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\Timer.cs",
               "RelativeToolTip": "Core\\Timer.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAswDIAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAwCIAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-08T00:19:24.21Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MainScene.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\MainScene.cs",
               "RelativeDocumentMoniker": "Model\\MainScene.cs",
               "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\MainScene.cs",
               "RelativeToolTip": "Model\\MainScene.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAA1wE4AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAiwNAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-06T07:17:27.525Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\GameManager.cs",
               "RelativeDocumentMoniker": "Core\\GameManager.cs",
@@ -178,7 +152,46 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InputManager.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\InputManager.cs",
+              "RelativeDocumentMoniker": "Core\\InputManager.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\InputManager.cs",
+              "RelativeToolTip": "Core\\InputManager.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAjwGcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T01:06:32.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ConsoleUI.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\UI\\ConsoleUI.cs",
+              "RelativeDocumentMoniker": "UI\\ConsoleUI.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\UI\\ConsoleUI.cs",
+              "RelativeToolTip": "UI\\ConsoleUI.cs",
+              "ViewState": "AgIAAHEBAAAAAAAAAAA8wIwBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T01:30:20.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
+              "RelativeDocumentMoniker": "Model\\Player.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Player.cs",
+              "RelativeToolTip": "Model\\Player.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAUwEcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T07:27:42.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Character.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Model\\Character.cs",
               "RelativeDocumentMoniker": "Model\\Character.cs",
@@ -191,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -205,18 +218,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "InputManager.cs",
-              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\InputManager.cs",
-              "RelativeDocumentMoniker": "Core\\InputManager.cs",
-              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Core\\InputManager.cs",
-              "RelativeToolTip": "Core\\InputManager.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAUwE4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T01:06:32.977Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "SceneManager.cs",
               "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\ConsoleGameFramework\\Scenes\\SceneManager.cs",
               "RelativeDocumentMoniker": "Scenes\\SceneManager.cs",

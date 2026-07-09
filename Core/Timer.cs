@@ -23,6 +23,11 @@ namespace ConsoleGameFramework_KR.Core
         {
             //여기서 스레드 풀에서 하나의 스레드를 제공받아서 해당 스레드가 UpdateTime을 따로 돌림
             m_refTimeTask = Task.Run(UpdateTime);
+
+            //Thread t = new Thread(UpdateTime);
+            //t.Start();
+            //t.Join();
+
         }
 
         //최소한의 일꾼(스레드)으로 최대한의 효율을 내기 위해
