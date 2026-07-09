@@ -1,10 +1,12 @@
 ﻿using ConsoleGameFramework.Core;
 using ConsoleGameFramework.Models;
+using ConsoleGameFramework.UI;
 using ConsoleGameFramework_KR.Model;
 using ConsoleGameFramework_KR.Scenes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -59,22 +61,27 @@ namespace ConsoleGameFramework_KR.Core
         private HashSet<Vec2> m_refHashClose = new HashSet<Vec2>();
 
         private ePathFlag Flag = ePathFlag.None;
+
+        private int iMax;
         public void Init()
         {
             Flag |= ePathFlag.AStar;
 
+            Vec2 vScale = SceneManager.Instance.CurrentScene.GetMapSize();
+            int i = vScale.x > vScale.y ? vScale.x : vScale.y;
+            iMax = i;
 
-            m_listVis = Enumerable.Range(0, 100)
-            .Select(_ => Enumerable.Repeat(false, 100).ToList())
+            m_listVis = Enumerable.Range(0, iMax)
+            .Select(_ => Enumerable.Repeat(false, iMax).ToList())
             .ToList();
 
-            m_listPath = Enumerable.Range(0, 100)
-           .Select(_ => Enumerable.Repeat(new Vec2(), 100).ToList())
+            m_listPath = Enumerable.Range(0, iMax)
+           .Select(_ => Enumerable.Repeat(new Vec2(), iMax).ToList())
            .ToList();
 
 
-            m_listBestG = Enumerable.Range(0, 100)
-           .Select(_ => Enumerable.Repeat(int.MaxValue, 100).ToList())
+            m_listBestG = Enumerable.Range(0, iMax)
+           .Select(_ => Enumerable.Repeat(int.MaxValue, iMax).ToList())
            .ToList();
         }
 
@@ -88,15 +95,20 @@ namespace ConsoleGameFramework_KR.Core
         {
             //SceneManager에서 FindObject(Layer.Apple)로 가져와서 비교해보는게 좋은데 그건 나중에
             SceneBase refScene = SceneManager.Instance.CurrentScene;
-
-            //TODO 나중에는 플래그에 따라 길탐색
-
+            
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             StartAStar(vStartPos, refScene);
+            stopwatch.Stop();
+            ConsoleUI.WriteLine($"A* 알고리즘 실행 시간: {stopwatch.Elapsed.TotalMilliseconds} ms");
 
-            //BFS(vStartPos, refScene); 
-            
+            stopwatch.Start();
+            BFS(vStartPos, refScene);
+            stopwatch.Stop();
+            ConsoleUI.WriteLine($"BFS 알고리즘 실행 시간: {stopwatch.Elapsed.TotalMilliseconds} ms");
+
             //DFSStart(vStartPos, refScene);
-            
+
             Reset();
 
             Vec2 Max = refScene.GetMapSize();
@@ -154,11 +166,11 @@ namespace ConsoleGameFramework_KR.Core
                 }
             }
 
-            if(bFind == true)
+            //없으면 게임이 끝남
+            if (bFind == true)
             {
                 FindPath(vCur);
             }
-
         }
 
         //범위가 너무 많아서 안 쓰기로 했습니다
@@ -211,18 +223,20 @@ namespace ConsoleGameFramework_KR.Core
         //휴리스틱을 기준으로 가장 가까운 사과를 찾기
         private void StartAStar(Vec2 _vStartPos, SceneBase _refSceneBase)
         {
+            //맨해튼 거리고 가장 가까운 사과 찾기
             Vec2 vEndPos = new Vec2(-1,-1);
             int iMinH = int.MaxValue;
             foreach (var refObj in _refSceneBase.GetObjs(Layer.Apple))
             {
                 Vec2 vTargetPos = refObj.m_vPos;
-                int h = (Math.Abs(_vStartPos.x - vTargetPos.x) + Math.Abs(_vStartPos.y - vTargetPos.y)) * 10;
-                if (h < iMinH)
+                int H = (Math.Abs(_vStartPos.x - vTargetPos.x) + Math.Abs(_vStartPos.y - vTargetPos.y)) * 10;
+                if (H < iMinH)
                 {
-                    iMinH = h;
+                    iMinH = H;
                     vEndPos = vTargetPos;
                 }
             }
+
             if (vEndPos.x == -1)
                 return;
 
@@ -240,7 +254,6 @@ namespace ConsoleGameFramework_KR.Core
             m_refHashClose.Clear();
             Node vStartNode = new Node(_vStartPos.y, _vStartPos.x);
             m_refOpenPQ.Enqueue(vStartNode, vStartNode.F);
-
 
             while (m_refOpenPQ.Count > 0)
             {
@@ -280,14 +293,14 @@ namespace ConsoleGameFramework_KR.Core
                     // 휴리스틱 대각선 제외한 맨해튼 거리 측정법 (X차이 + Y차이 * 10) -> 목적지까지 예정 비용
                     int iNextH = (Math.Abs(vNext.x - _vEndPos.x) + Math.Abs(vNext.y - _vEndPos.y)) * 10;
 
-                    //1. 이미 발견된 적이 있는 타일인지 최고 기록(Best G)을 확인
+                    // 이미 발견된 적이 있는 타일인지 최고 기록(Best G)을 확인
                     if (iNextG < m_listBestG[vNext.y][vNext.x])
                     {
                         m_listBestG[vNext.y][vNext.x] = iNextG;
 
                         m_listPath[vNext.y][vNext.x] = new Vec2(tCur.Y, tCur.X);
 
-                        // 4. 새로운 데이터로 노드를 생성하여 큐에 대입
+                        // 새로운 데이터로 노드를 생성하여 큐에 대입
                         Node vNextNode = new Node(vNext.y, vNext.x)
                         {
                             G = iNextG,
@@ -323,9 +336,9 @@ namespace ConsoleGameFramework_KR.Core
         private void Reset()
         {
             // 100x100 크기를 유지한 채 내부 값만 덮어씁니다.
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < iMax; i++)
             {
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < iMax; j++)
                 {
                     m_listVis[i][j] = false;
                     m_listBestG[i][j] = int.MaxValue;

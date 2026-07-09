@@ -72,8 +72,8 @@ namespace ConsoleGameFramework_KR.Model
         new MenuOption(1, "샘플 화면으로 이동", "ConsoleUI의 다른 기능들을 보여주는 화면으로 이동합니다."),
         new MenuOption(0, "종료", "프로그램을 종료합니다.")
     };
-        const int MAX_MAP_SIZEX = 100;
-        const int MAX_MAP_SIZEY = 30;
+        const int MAX_MAP_SIZEX = 1000;
+        const int MAX_MAP_SIZEY = 40;
 
         // 맵에 쓰는 ▣●★ 같은 전각 기호는 콘솔에서 최대 2칸 폭으로 보일 수 있어
         // 뷰포트 폭을 계산할 때 이를 반영합니다.
@@ -219,7 +219,7 @@ namespace ConsoleGameFramework_KR.Model
         private void RenderScene(GameContext context)
         {
             m_strMap.Clear();
-            //m_refPlayer. 여기서 Queue로 플레이어 정보 가져오기
+        
 
             for (int i = 0; i< MAX_MAP_SIZEY; ++i)
             {
@@ -236,6 +236,7 @@ namespace ConsoleGameFramework_KR.Model
                 }
                 m_strMap.Append('\n');
             }
+
             PathManager.Instance.Render(m_strMap);
         }
 

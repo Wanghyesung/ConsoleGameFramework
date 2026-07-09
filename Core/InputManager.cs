@@ -36,6 +36,11 @@ public class Key
 
 public static class InputManager
 {
+    /*
+     *  C# 등의 닷넷(C#/.NET) 프로그램에서 Windows 운영체제의 핵심 시스템 파일인 
+     *  user32.dll 안에 들어있는 C/C++ 기반의 네이티브 함수(Win32 API)를 호출하기 위해 사용하는 속성(Attribute)
+     */
+
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(int vKey); //Windows OS 시스템의 기능
 
@@ -82,7 +87,7 @@ public static class InputManager
     {
         for (int i = 0; i < (int)KeyCode.END; i++)
         {
-            if ((GetAsyncKeyState(ASCII[i]) & 0x8000) != 0)
+            if ((GetAsyncKeyState(ASCII[i]) & 0x8000) != 0)//https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-getasynckeystate
             {
                 // 이전 프레임에도 눌려있었다.
                 if (m_vecKeys[i].pressed)
